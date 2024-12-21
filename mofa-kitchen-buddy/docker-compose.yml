@@ -1,0 +1,30 @@
+services:
+  bun:
+    image: bun:latest
+    volumes:
+      - ./app:/app
+      - ./app/data/my_fav_recipe.txt:/app/my_fav_recipe.txt
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+
+  mongo:
+    image: mongo:latest
+    env_file:
+      - .env
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  ollama:
+    image: ollama/ollama:latest
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+
+volumes:
+  mongo_data:
